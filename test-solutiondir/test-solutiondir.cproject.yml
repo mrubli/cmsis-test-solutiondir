@@ -1,10 +1,13 @@
 # A project translates into one executable or library.
 project:
-  
+
   groups:
     - group: Source Files
       files:
-        - file: ./main.c
+        # Original: always OK
+        #- file: main.c
+        # Using $SolutionDir()$: Also always OK
+        - file: $SolutionDir()$/test-solutiondir/main.c
 
   # List components to use for your application.
   # A software component is a re-usable unit that may be configurable.
@@ -18,3 +21,23 @@ project:
       - elf
       - hex
       - map
+
+  executes:
+    - execute: Print_SolutionDir
+      always:
+      # Without "-O":
+      # ++ SolutionDir: …/tests/cmsis/cmsis-test-solutiondir/.
+      # With "-O ARMCM7.Debug":
+      # ++ SolutionDir: …/tests/cmsis/cmsis-test-solutiondir/..
+      run: "echo ++ SolutionDir: $output$"
+      output:
+        - $SolutionDir()$
+    - execute: Print_ProjectDir
+      always:
+      # Without "-O":
+      # ++ ProjectDir: …/tests/cmsis/cmsis-test-solutiondir/test-solutiondir
+      # With "-O ARMCM7.Debug":
+      # ++ ProjectDir: …/tests/cmsis/cmsis-test-solutiondir/../test-solutiondir
+      run: "echo ++ ProjectDir: $output$"
+      output:
+        - $ProjectDir(test-solutiondir)$
