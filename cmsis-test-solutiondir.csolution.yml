@@ -27,6 +27,10 @@ solution:
   target-types:
     - type: ARMCM7
       device: ARMCM7
+      target-set:
+        - set:
+          images:
+            - project-context: test-solutiondir.Debug
 
   # List of different build configurations.
   build-types:
@@ -41,3 +45,4 @@ solution:
   # List related projects.
   projects:
     - project: test-solutiondir/test-solutiondir.cproject.yml
+  compiler: AC6
